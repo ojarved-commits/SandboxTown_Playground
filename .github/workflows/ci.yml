@@ -37,7 +37,10 @@ jobs:
 
       - name: Coverage summary
         run: |
-          python -m coverage report -m >> $GITHUB_STEP_SUMMARY
+          python -m coverage report -m | tee coverage.txt
+          echo "## 📊 Coverage Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          grep TOTAL coverage.txt >> $GITHUB_STEP_SUMMARY
 
       - name: Upload coverage HTML report
         uses: actions/upload-artifact@v4
