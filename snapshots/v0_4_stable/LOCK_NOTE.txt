@@ -1,0 +1,15 @@
+ORPIN / MOS SandboxTown Playground
+Baseline: v0.4 STABLE (Policy Passive)
+
+Intent:
+- Freeze known-good behavior for future forks.
+- Headless batch runs stable.
+- Visual mode works when invoked.
+- Policy exists as extension point but must not alter behavior in baseline.
+
+Verification:
+- Multi-run batch completed without crash.
+- Telemetry CSV saved per run.
+- summarize_run tool works.
+
+Do not edit this snapshot. Fork from it.

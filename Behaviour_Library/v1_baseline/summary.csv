@@ -1,0 +1,27 @@
+Pause threshold: speed < 2.0 px/s
+
+- Agent A | FISH_AQUARIUM | model=fish
+  rows=31920  total_time=532.39s  avg_dt=0.0167
+  avg_speed=46.51  std_speed=69.15  pause_ratio=0.63
+  transitions=174
+  zones: Library 47.7%, Park 27.7%, Transition 20.6%, None 2.4%, Rest 1.5%
+
+- Agent B | ANT_FAST | model=ant
+  rows=31920  total_time=532.39s  avg_dt=0.0167
+  avg_speed=26.37  std_speed=11.45  pause_ratio=0.00
+  transitions=150
+  zones: Transition 58.4%, Library 28.5%, None 12.3%, Park 0.8%
+
+- Agent C | ANT_SLOW | model=ant
+  rows=31920  total_time=532.39s  avg_dt=0.0167
+  avg_speed=15.05  std_speed=7.55  pause_ratio=0.00
+  transitions=100
+  zones: Transition 58.7%, Library 28.4%, None 12.4%, Park 0.5%
+
+- Agent D | BIRD_GLIDE | model=ant
+  rows=31920  total_time=532.39s  avg_dt=0.0167
+  avg_speed=24.51  std_speed=20.55  pause_ratio=0.04
+  transitions=99
+  zones: Transition 59.7%, Library 29.0%, None 7.3%, Park 4.0%
+
+Saved summary CSV -> telemetry\runs\run_20260209_150344_four_agents_ecosystem_summary.csv

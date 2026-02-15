@@ -1,0 +1,8 @@
+t,state,stability,mode,event
+0,Stable,0.7000,Headless,
+1,Help-Seeking,0.5800,Headless,ENTER_HELP
+2,Help-Seeking,0.6300,Headless,
+3,Recovered,0.6600,Headless,EXIT_HELP_TO_RECOVERED
+4,Rest,0.2700,Headless,ENTER_REST
+5,Recovered,0.4200,Headless,EXIT_REST_TO_RECOVERED
+6,Stable,0.6600,Headless,

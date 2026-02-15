@@ -1,0 +1,28 @@
+### Fish vs Ant in your sandbox town (side-by-side map)
+
+| Dimension             | **FISH (v1.1.7 Aquarium)**                                            | **ANT (v1.1.9+ / split ants)**                                                  | What this *produces visually*                                      |
+| --------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| Core locomotion       | **Inertia / glide**: `vel = vec_lerp(vel, desired, dt*TURN_RATE)`     | **Steer-to-target**: `vel = vel.lerp(steer, alpha)` (often stronger correction) | Fish = arcs/loops; Ant = zig-zag/corrections                       |
+| Target style          | **Zone centers** (mostly)                                             | **Points in zone** (random retargets + orbit impulses)                          | Centers = big sweeps; points = foraging                            |
+| Retarget cadence      | Occasional: `(dwell_ticks % 8 == 0)`                                  | Often: inside-zone retarget probability + commit changes                        | Fish feels “continuous”; Ant feels “tasked”                        |
+| Pause model           | **Seconds-based** (`pause_hold_s`, `pause_cooldown_s`)                | **Ticks-based** (`pause_hold`, cooldown ticks)                                  | Fish pauses feel organic; Ant pauses feel stepwise                 |
+| Edge pauses           | **Near-edge latch** with random hold in seconds                       | Edge pause “checking traffic” (ticks) + cooldown                                | Fish = soft hesitation; Ant = deliberate check                     |
+| Commit model          | **Rare, probabilistic** (`random() < 0.012`) + cooldown               | **Always-on commit window** (commit_ticks drives behavior a lot)                | Fish = roaming; Ant = purposeful shuttling                         |
+| Dwell/hysteresis      | **MIN_DWELL_TICKS + leaving_lock_ticks** (exit decision held briefly) | **Score hysteresis epsilon** (don’t flip unless score wins)                     | Fish exits feel like “drift away”; Ant exits feel like “decision”  |
+| Decision gate         | Leave only when **near edge**; otherwise return to center             | Can switch when state says so (but hysteresis reduces ping-pong)                | Fish resists “flip-flop” naturally                                 |
+| Energy/state coupling | Energy deltas are **per-second**, applied with dt                     | Often dt*60 scaling + dwell ramps + soft edge/exposure factors                  | Fish changes feel smooth; Ant can compound faster with dwell ramps |
+| “Rest” effect         | Rest is **buoyancy** (high pause_bias, easy leave)                    | Rest/Transition often treated as another zone in scoring                        | Fish uses rest as float/recovery; Ant uses rest as state optimizer |
+| Randomness role       | Small noise in scores + random pause duration                         | Random wander vectors + orbit impulses + retarget points                        | Fish randomness is subtle; Ant randomness is directional           |
+| Feel / metaphor       | **Aquarium swimmer** (flow-field, inertia)                            | **Forager/scout** (probe, commit, correct)                                      | Exactly what you described                                         |
+
+---
+
+### The key takeaway (why your split felt like “slow ant vs fast ant”)
+
+In the split build, you mostly varied **speed/metabolism knobs** (base speed, crawl min, wander, etc.) while keeping an **ant-like movement primitive** (steer-to-target + commit dominance). So you got the same organism at different speeds.
+
+**To get true fish again, you must swap the movement primitive + pause timing + center-targeting.** Speed alone can’t do it.
+
+---
+
+

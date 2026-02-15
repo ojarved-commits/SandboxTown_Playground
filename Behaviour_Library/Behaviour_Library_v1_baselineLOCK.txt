@@ -1,0 +1,1 @@
+Locked baseline: Fish + Ant_Fast + Ant_Slow + Bird_Glide. No edits. All comparisons branch from this.

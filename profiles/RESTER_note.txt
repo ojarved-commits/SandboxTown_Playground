@@ -1,0 +1,13 @@
+RESTER PROFILE
+Behaviour: Regulation / Recovery
+Emerges when:
+- In Transition or Rest zones
+- Energy low or coherence unstable
+
+Characteristics:
+- Slows without freezing
+- Pauses safely
+- Leaves when regulated
+
+Note:
+This is an emergent mode, not a separate agent yet.

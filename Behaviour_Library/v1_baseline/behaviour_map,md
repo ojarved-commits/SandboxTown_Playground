@@ -1,0 +1,21 @@
+# v1 Baseline Behaviour Map
+
+## Fantail (Fish / A)
+- Signature: sprint-rest cycles, edge-check pauses
+- Telemetry tells: high pause_ratio, higher speed std, balanced zone spread
+- Role: scout / pulse mover / reset-return
+
+## Kiwi (Ant_fast / B)
+- Signature: load-tolerant exploration, low pause, ground persistence
+- Telemetry tells: low pause_ratio, steady speed, heavy Transition/Library time
+- Role: forager / stubborn continuity / slow-burn learning
+
+## Kiwi (Ant_slow / C)
+- Signature: same as kiwi but “low gear”, more linger
+- Telemetry tells: lower avg_speed, fewer transitions
+- Role: stabilizer / drift anchor / patience agent
+
+## Sparrow (Bird / D)
+- Signature: wide looping turns, lighter commitment, occasional perch
+- Telemetry tells: moderate speed variance, low-to-mid pause_ratio, fast scanning transitions
+- Role: surveyor / pattern-sampler / overview agent

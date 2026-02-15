@@ -1,0 +1,7 @@
+{
+  "help_enter": 0.60,
+  "help_exit": 0.65,
+  "rest_enter": 0.30,
+  "rest_exit": 0.40,
+  "visual_min_stable": 0.65
+}
