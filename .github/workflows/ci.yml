@@ -2,17 +2,17 @@ name: CI
 
 on:
   pull_request:
-    branches: ["main"]
+    branches: [ "main" ]
   push:
-    branches: ["main"]
+    branches: [ "main" ]
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -23,10 +23,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install pytest pytest-cov
+          python -m pip install pytest pytest-cov coverage
           if [ -f requirements.txt ]; then python -m pip install -r requirements.txt; fi
 
-      - name: Run tests (soft coverage)
+      - name: Run tests
         run: |
           python -m pytest \
             --cov=sandboxtown_v2 \
@@ -42,19 +42,11 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           grep TOTAL coverage.txt >> $GITHUB_STEP_SUMMARY
 
-      - name: Generate coverage badge
-        run: |
-          python -m pip install genbadge[coverage]
-          mkdir -p badges
-          genbadge coverage -i coverage.xml -o badges/coverage.svg
-
-
-      - name: Upload coverage HTML report
+      - name: Upload coverage HTML
         uses: actions/upload-artifact@v4
         with:
           name: coverage-html
           path: htmlcov/
-          if-no-files-found: error
           retention-days: 14
 
       - name: Upload coverage XML
@@ -62,20 +54,6 @@ jobs:
         with:
           name: coverage-xml
           path: coverage.xml
-          if-no-files-found: error
           retention-days: 14
 
-      - name: Generate coverage badge
-        run: |
-          python -m pip install genbadge[coverage]
-          python -m coverage xml -o coverage.xml
-          mkdir -p badges
-          genbadge coverage -i coverage.xml -o badges/coverage.svg
-
-      - name: Commit coverage badge (main only)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: EndBug/add-and-commit@v9
-        with:
-          add: badges/coverage.svg
-          message: "chore: update coverage badge"
 
