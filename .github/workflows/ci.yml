@@ -22,7 +22,7 @@ jobs:
           python -m pip install pytest pytest-cov
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: Run tests
+      - name: Run tests (soft coverage)
         run: |
           python -m pytest \
             --cov=sandboxtown_v2 \
