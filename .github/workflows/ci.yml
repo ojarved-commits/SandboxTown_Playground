@@ -7,7 +7,7 @@ on:
     branches: ["main"]
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 jobs:
@@ -42,6 +42,13 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           grep TOTAL coverage.txt >> $GITHUB_STEP_SUMMARY
 
+      - name: Generate coverage badge
+        run: |
+          python -m pip install genbadge[coverage]
+          mkdir -p badges
+          genbadge coverage -i coverage.xml -o badges/coverage.svg
+
+
       - name: Upload coverage HTML report
         uses: actions/upload-artifact@v4
         with:
@@ -57,3 +64,18 @@ jobs:
           path: coverage.xml
           if-no-files-found: error
           retention-days: 14
+
+      - name: Generate coverage badge
+        run: |
+          python -m pip install genbadge[coverage]
+          python -m coverage xml -o coverage.xml
+          mkdir -p badges
+          genbadge coverage -i coverage.xml -o badges/coverage.svg
+
+      - name: Commit coverage badge (main only)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: badges/coverage.svg
+          message: "chore: update coverage badge"
+
